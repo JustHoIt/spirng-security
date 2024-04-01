@@ -28,7 +28,7 @@ public class UserController {
 
         log.info(signUpDTO.getUsername() + " | " + signUpDTO.getPassword());
         boolean signUpYn = userService.signUpProcess(signUpDTO);
-        log.info(String.valueOf(signUpDTO));
+        log.info(String.valueOf(signUpYn));
 
         return "redirect:/login";
     }

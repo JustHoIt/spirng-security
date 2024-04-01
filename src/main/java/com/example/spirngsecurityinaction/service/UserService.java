@@ -18,6 +18,11 @@ public class UserService {
     public boolean signUpProcess(SignUpDTO signUpDTO){
 
         //db에 동링한 username이 가진 회원이 존재하는지? Exception 처리 구현하기
+        boolean isUser = userRepository.existsByUsername(signUpDTO.getUsername());
+
+        if(isUser){
+            return false;
+        }
 
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(signUpDTO.getUsername());
