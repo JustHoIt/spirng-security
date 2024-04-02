@@ -10,3 +10,8 @@ spring:
       ddl-auto:  none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+server:
+  servlet:
+    session:
+      timeout: 1800 #초 기반 (기본)1800 = 30분, 분 기반 90m
