@@ -5,8 +5,13 @@ import com.example.spirngsecurityinaction.Entity.UserEntity;
 import com.example.spirngsecurityinaction.Repository.UserRepository;
 import com.example.spirngsecurityinaction.dto.SignUpDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 @Service
 public class UserService {
@@ -32,5 +37,18 @@ public class UserService {
         userRepository.save(userEntity);
 
         return true;
+    }
+
+    public String getUserId() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    public String getUserRole() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        GrantedAuthority authority = authorities.iterator().next();
+
+        return authority.getAuthority();
     }
 }
