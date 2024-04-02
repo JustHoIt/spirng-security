@@ -58,7 +58,12 @@ public class SecurityConfig {
                  * */
                 .sessionManagement((auth) -> auth
                         .maximumSessions(1)
-                        .maxSessionsPreventsLogin(true));
+                        .maxSessionsPreventsLogin(true)
+                );
+
+//        httpSecurity
+//                // - httpBasic 방식 인증을 위한 설정
+//                .httpBasic(Customizer.withDefaults());
 
         httpSecurity
                 /*
@@ -68,6 +73,7 @@ public class SecurityConfig {
                 * */
                 .sessionManagement((auth) -> auth
                         .sessionFixation().changeSessionId());
+
 
         return httpSecurity.build();
     }
