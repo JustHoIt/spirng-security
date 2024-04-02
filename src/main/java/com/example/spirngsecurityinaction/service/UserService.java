@@ -4,11 +4,14 @@ package com.example.spirngsecurityinaction.service;
 import com.example.spirngsecurityinaction.Entity.UserEntity;
 import com.example.spirngsecurityinaction.Repository.UserRepository;
 import com.example.spirngsecurityinaction.dto.SignUpDTO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -50,5 +53,18 @@ public class UserService {
         GrantedAuthority authority = authorities.iterator().next();
 
         return authority.getAuthority();
+    }
+
+    public boolean logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null) {
+            new SecurityContextLogoutHandler().logout(httpServletRequest, httpServletResponse, authentication);
+
+            return true;
+        }
+
+        return false;
     }
 }

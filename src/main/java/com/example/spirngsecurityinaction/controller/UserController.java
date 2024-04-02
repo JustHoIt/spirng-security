@@ -3,6 +3,8 @@ package com.example.spirngsecurityinaction.controller;
 
 import com.example.spirngsecurityinaction.dto.SignUpDTO;
 import com.example.spirngsecurityinaction.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,5 +33,22 @@ public class UserController {
         log.info(String.valueOf(signUpYn));
 
         return "redirect:/login";
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+        boolean logoutYn = userService.logout(httpServletRequest, httpServletResponse);
+
+        if (logoutYn) {
+            return "redirect:/";
+        } else {
+            return "main";
+        }
     }
 }

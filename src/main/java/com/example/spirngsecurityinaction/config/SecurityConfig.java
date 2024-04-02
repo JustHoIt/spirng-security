@@ -35,9 +35,13 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 );
 
+//        httpSecurity
+//                .csrf((auth) -> auth.disable()
+//                );
+
         httpSecurity
-                .csrf((auth) -> auth.disable()
-                );
+                .logout((auth) -> auth.logoutUrl("/logout")
+                        .logoutSuccessUrl("/"));
 
         httpSecurity
                 .formLogin((auth) -> auth.loginPage("/login")
